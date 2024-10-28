@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Weather App</h1>
+    <p>Enter the city:</p>
+    <form id="weatherForm">
+        <input type="text" name="city" placeholder="Enter City" required />
+        <button type="submit">Get Weather</button>
+    </form>
+
+    <!-- Displaying weather Result -->
+    <div id="weatherResult" style="display:none;">
+        <h2>Weather Information</h2>
+        <p><img src="temp.png" alt="Temperature Icon" width="20" height="20"> <span id="temperature"></span></p>
+        <p><img src="humidity.png" alt="Humidity Icon" width="20" height="20"> <span id="humidity"></span></p>
+        <p><img src="wind.png" alt="Wind Speed Icon" width="20" height="20"> <span id="windSpeed"></span></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('weatherForm');
+        const weatherResultDiv = document.getElementById('weatherResult');
+        const temperatureElement = document.getElementById('temperature');
+        const humidityElement = document.getElementById('humidity');
+        const windSpeedElement = document.getElementById('windSpeed');
+
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const city = formData.get('city');
+
+            const response = await fetch('/', {
+                method: 'POST',
+                body: new URLSearchParams({ city: city })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                temperatureElement.textContent = `Temperature: ${data.temperature} °F`;
+                humidityElement.textContent = `Humidity: ${data.humidity} %`;
+                windSpeedElement.textContent = `Wind Speed: ${data.windSpeed} mph`;
+
+                weatherResultDiv.style.display = 'block';
+            } else {
+                alert('Error fetching weather data. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

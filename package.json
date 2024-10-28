@@ -1,0 +1,16 @@
+{
+  "name": "rahul-lab2-weather",
+  "version": "1.0.0",
+  "description": "In this lab you will build a weather app using Node.js and API calls.",
+  "main": "weatherapp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7"
+  }
+}
